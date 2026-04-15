@@ -69,17 +69,20 @@
     <div class="modal-overlay" id="product-modal">
         <div class="modal-content">
             <button class="close-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
-            <h3 id="modal-title" class="modal-title">NOMBRE BURGER</h3>
-            <p id="modal-desc" class="modal-desc">Ingredientes...</p>
             
-            <div class="options-group">
-                <h4>EL TAMAÑO DE LA BESTIA</h4>
-                <div id="modal-sizes" class="radio-group"></div>
-            </div>
+            <div class="modal-body">
+                <h3 id="modal-title" class="modal-title">NOMBRE BURGER</h3>
+                <p id="modal-desc" class="modal-desc">Ingredientes...</p>
+                
+                <div class="options-group">
+                    <h4>TAMAÑO</h4>
+                    <div id="modal-sizes" class="radio-group"></div>
+                </div>
 
-            <div class="options-group">
-                <h4>CÁRGALA DE EXTRAS</h4>
-                <div id="modal-extras" class="checkbox-group"></div>
+                <div class="options-group">
+                    <h4>EXTRAS</h4>
+                    <div id="modal-extras" class="checkbox-group"></div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -93,7 +96,6 @@
         <header class="hero" id="inicio">
             <div class="hero-overlay"></div>
             <div id="sparks-container"></div> 
-            
             <div class="hero-content">
                 <h1 class="landing-title">DESPERTÁ A LA <span class="highlight">BESTIA</span></h1>
                 <p class="hero-subtitle">Ricas y buenas burgers. No aptas para flojos.</p>
@@ -106,14 +108,12 @@
                 <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
                 <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
                 <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
-                <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
             </div>
         </div>
 
         <main class="menu-container" id="menu-seccion">
             <h2 class="section-title">NUESTRAS <span class="highlight">BESTIAS</span></h2>
             <p class="menu-note"><i class="fa-solid fa-fire"></i> ATENCIÓN: Todos los combos incluyen papas y bebida.</p>
-            
             <div class="slider-wrapper">
                 <button class="slider-arrow left" onclick="scrollSlider('left', 'productos-contenedor')"><i class="fa-solid fa-chevron-left"></i></button>
                 <div id="productos-contenedor" class="horizontal-slider"></div>
@@ -132,7 +132,7 @@
         </footer>
     </div>
 
-    <div id="notificacion" class="toast-notification">¡Agregado al pedido!</div>
+    <div id="notificacion" class="toast-notification">¡Agregado!</div>
     <script src="app.js"></script>
 </body>
 </html>
