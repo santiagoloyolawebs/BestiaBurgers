@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestia Burger's | Hechas con Furia</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700;900&family=Montserrat:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                BESTIA <span class="highlight">BURGER'S</span>
+            </div>
+            <button class="cart-toggle-btn" id="btn-abrir-carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-counter" class="cart-counter">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>TU PEDIDO BESTIAL</h2>
+            <button class="close-cart-btn" id="btn-cerrar-carrito"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body">
+            <ul id="lista-carrito" class="cart-list"></ul>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-options">
+                <div class="form-group">
+                    <label for="metodo-pago">Método de pago:</label>
+                    <select id="metodo-pago">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia (MercadoPago)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="metodo-entrega">Entrega:</label>
+                    <select id="metodo-entrega" onchange="toggleDireccion()">
+                        <option value="Retiro por local">Paso a buscarla</option>
+                        <option value="Delivery">Delivery</option>
+                    </select>
+                </div>
+                <div class="form-group" id="grupo-direccion" style="display: none;">
+                    <label for="direccion-envio">Dirección de envío:</label>
+                    <input type="text" id="direccion-envio" placeholder="Ej: Andrade 1486">
+                </div>
+            </div>
+
+            <div class="cart-notes">
+                <label for="pedido-notas" style="font-size: 0.9rem; font-weight: 800; display: block; margin-bottom: 5px; color: var(--text-muted);">Aclaraciones:</label>
+                <textarea id="pedido-notas" placeholder="Ej: La Indomable sin huevo..."></textarea>
+            </div>
+            
+            <div class="cart-total-box">
+                <span>TOTAL:</span>
+                <span id="precio-total" class="highlight">$0</span>
+            </div>
+            <button id="btn-whatsapp" class="btn-whatsapp" disabled>ENVIAR PEDIDO</button>
+        </div>
+    </aside>
+
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="modal-title" class="modal-title">NOMBRE BURGER</h3>
+            <p id="modal-desc" class="modal-desc">Ingredientes...</p>
+            
+            <div class="options-group">
+                <h4>EL TAMAÑO DE LA BESTIA</h4>
+                <div id="modal-sizes" class="radio-group"></div>
+            </div>
+
+            <div class="options-group">
+                <h4>CÁRGALA DE EXTRAS</h4>
+                <div id="modal-extras" class="checkbox-group"></div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="total-price">Total: <span id="modal-total-price" class="highlight">$0</span></div>
+                <button class="btn-add" id="btn-agregar-modal">AGREGAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+        <header class="hero" id="inicio">
+            <div class="hero-overlay"></div>
+            <div id="sparks-container"></div> 
+            
+            <div class="hero-content">
+                <h1 class="landing-title">DESPERTÁ A LA <span class="highlight">BESTIA</span></h1>
+                <p class="hero-subtitle">Ricas y buenas burgers. No aptas para flojos.</p>
+                <a href="#menu-seccion" class="btn-hero">VER EL MENÚ</a>
+            </div>
+        </header>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
+                <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
+                <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
+                <span>🔥 HECHAS CON FURIA • 100% CARNE ARGENTINA • DESPERTÁ A LA BESTIA 🔥</span>
+            </div>
+        </div>
+
+        <main class="menu-container" id="menu-seccion">
+            <h2 class="section-title">NUESTRAS <span class="highlight">BESTIAS</span></h2>
+            <p class="menu-note"><i class="fa-solid fa-fire"></i> ATENCIÓN: Todos los combos incluyen papas y bebida.</p>
+            
+            <div class="slider-wrapper">
+                <button class="slider-arrow left" onclick="scrollSlider('left', 'productos-contenedor')"><i class="fa-solid fa-chevron-left"></i></button>
+                <div id="productos-contenedor" class="horizontal-slider"></div>
+                <button class="slider-arrow right" onclick="scrollSlider('right', 'productos-contenedor')"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-info">
+                <p><i class="fa-solid fa-location-dot"></i> Andrade 1486, Zárate, Bs.As.</p>
+                <p><i class="fa-regular fa-clock"></i> Miércoles a Lunes desde las 19:30hs</p>
+            </div>
+            <a href="https://www.instagram.com/bestiaburgers01/" target="_blank" class="btn-instagram">
+                <i class="fa-brands fa-instagram"></i> @bestiaburgers01
+            </a>
+        </footer>
+    </div>
+
+    <div id="notificacion" class="toast-notification">¡Agregado al pedido!</div>
+    <script src="app.js"></script>
+</body>
+</html>
