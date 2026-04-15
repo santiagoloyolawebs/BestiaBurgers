@@ -73,7 +73,6 @@ function renderizarMenu() {
         const div = document.createElement('div');
         div.classList.add('slider-card'); 
         
-        // Al hacer clic en la tarjeta, la centra (Excepto si tocás el botón)
         div.onclick = (e) => {
             if(e.target.tagName.toLowerCase() === 'button') return;
             div.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -93,13 +92,7 @@ function renderizarMenu() {
 
     setTimeout(() => {
         iniciarEfectoCoverFlow();
-        // Nos aseguramos de centrar la primera tarjeta al arrancar
-        const firstCard = contenedorBurgers.children[0];
-        if(firstCard) {
-            contenedorBurgers.style.scrollBehavior = 'auto'; 
-            firstCard.scrollIntoView({ inline: "center" });
-            contenedorBurgers.style.scrollBehavior = 'smooth'; 
-        }
+        contenedorBurgers.scrollLeft = 0;
     }, 100);
 }
 
@@ -316,10 +309,11 @@ btnWhatsApp.addEventListener('click', () => {
     window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
 });
 
+// ACÁ ESTÁ LA OPTIMIZACIÓN: Bajamos de 35 chispas a 15 para matar el lag
 function generarChispas() {
     const contenedorFuego = document.getElementById('sparks-container');
     if (!contenedorFuego) return;
-    const cantidadChispas = 35; 
+    const cantidadChispas = 15; 
     for (let i = 0; i < cantidadChispas; i++) {
         let chispa = document.createElement('div');
         chispa.classList.add('spark');

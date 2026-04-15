@@ -47,11 +47,22 @@ body.no-scroll { overflow: hidden; }
 @keyframes marquee-anim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 #sparks-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
-.spark { position: absolute; bottom: -10px; background-color: var(--accent-yellow); border-radius: 50%; opacity: 0; box-shadow: 0 0 10px var(--accent-red), 0 0 20px var(--accent-yellow); animation: floatUp linear infinite; }
+
+/* OPTIMIZACIÓN DEL FUEGO: Menos sombra y aceleración de hardware para quitar el lag */
+.spark { 
+    position: absolute; 
+    bottom: -10px; 
+    background-color: var(--accent-yellow); 
+    border-radius: 50%; 
+    opacity: 0; 
+    box-shadow: 0 0 4px var(--accent-red); /* Sombra más chica y simple */
+    animation: floatUp linear infinite; 
+    will-change: transform, opacity; /* Activa la GPU para esta animación */
+}
 @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-100vh) scale(0); opacity: 0; } }
 
 /* =========================================
-   CARRUSEL COVER FLOW (CORRECCIÓN UX MÓVIL)
+   CARRUSEL COVER FLOW
    ========================================= */
 .menu-container { padding: 40px 0; flex-grow: 1; width: 100%; overflow: hidden; position: relative; }
 .section-title { font-family: var(--fuente-titulo); font-weight: 900; color: var(--text-main); font-size: 3rem; text-align: center; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 0 20px; line-height: 1;}
@@ -64,8 +75,7 @@ body.no-scroll { overflow: hidden; }
     overflow-x: auto; 
     scroll-snap-type: x mandatory; 
     scroll-behavior: smooth; 
-    /* Padding dinámico para centrar perfecto la tarjeta del 70% en móviles */
-    padding: 40px calc(50vw - 35vw); 
+    padding: 40px 10vw; 
     scrollbar-width: none; 
     width: 100%; 
     align-items: center; 
@@ -74,10 +84,14 @@ body.no-scroll { overflow: hidden; }
 
 .slider-card { 
     flex: 0 0 auto; 
-    width: 70vw; /* MÓVIL: Reducido al 70% para que asomen las de los costados */
-    min-width: 240px; /* Reducido levemente para celulares chicos */
+    width: 70vw; 
+    min-width: 240px; 
     max-width: 360px; 
     scroll-snap-align: center; 
+    
+    /* ACÁ ESTÁ LA MAGIA PARA QUE FRENE DE A UNA */
+    scroll-snap-stop: always; 
+
     background-color: var(--bg-card); 
     border-radius: 12px; 
     overflow: hidden; 
@@ -85,11 +99,11 @@ body.no-scroll { overflow: hidden; }
     flex-direction: column; 
     border: 1px solid transparent; 
     position: relative;
-    margin: 0 8px; /* MÓVIL: Las juntamos un poco más */
+    margin: 0 8px; 
     cursor: pointer; 
     
-    transform: scale(0.88); /* Un poco más grandes de base para que se vean bien */
-    opacity: 0.5; /* MÓVIL: Le damos un poco más de luz a las inactivas para que destaquen */
+    transform: scale(0.88); 
+    opacity: 0.5; 
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -173,8 +187,8 @@ body.no-scroll { overflow: hidden; }
     .slider-card {
         width: 360px;
         min-width: 360px; 
-        margin: 0 15px; /* PC: Volvemos a darle aire a las tarjetas */
-        opacity: 0.4; /* PC: Volvemos al contraste original oscuro */
+        margin: 0 15px; 
+        opacity: 0.4; 
     }
     .horizontal-slider { padding: 60px calc(50vw - 180px); }
     .product-img { height: 260px; } 
@@ -184,7 +198,7 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 768px) {
     .landing-title { font-size: 4rem; line-height: 1; }
     .slider-arrow { display: none; } 
-    .product-img { height: 200px; } /* Lo ajustamos apenitas para que entre perfecta en la pantalla de 70% */
+    .product-img { height: 200px; } 
 }
 
 .flying-item { position: fixed; z-index: 9999; width: 45px; height: 45px; background-color: var(--accent-yellow); border-radius: 50%; pointer-events: none; transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); display: flex; align-items: center; justify-content: center; color: var(--bg-dark); font-size: 1.2rem; box-shadow: 0 0 15px rgba(255, 184, 0, 0.6); }
